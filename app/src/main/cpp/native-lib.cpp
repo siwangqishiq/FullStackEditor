@@ -1,10 +1,23 @@
 #include <jni.h>
 #include <string>
 
-extern "C" JNIEXPORT jstring JNICALL
-Java_xyz_panyi_fullstackeditor_MainActivity_stringFromJNI(
-        JNIEnv* env,
-        jobject /* this */) {
+extern "C"{
+#include "libavcodec/avcodec.h"
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_xyz_panyi_fullstackeditor_bridge_NativeBridge_stringFromJNI(JNIEnv *env, jclass clazz) {
     std::string hello = "Hello from C++";
     return env->NewStringUTF(hello.c_str());
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_xyz_panyi_fullstackeditor_bridge_NativeBridge_ffmpegVersion(JNIEnv *env, jclass clazz) {
+    unsigned version = avcodec_version();  // 获取版本号
+    char info[100];
+    snprintf(info, sizeof(info), "%u.%u.%u",
+             (version >> 16) & 0xFF, (version >> 8) & 0xFF, version & 0xFF);
+    return env->NewStringUTF(info);
 }

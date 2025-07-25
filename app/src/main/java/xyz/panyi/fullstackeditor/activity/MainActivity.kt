@@ -2,8 +2,10 @@ package xyz.panyi.fullstackeditor.activity
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import xyz.panyi.fullstackeditor.R
+import xyz.panyi.fullstackeditor.bridge.NativeBridge
 import xyz.panyi.fullstackeditor.util.Log
 
 class MainActivity : AppCompatActivity() {
@@ -11,10 +13,14 @@ class MainActivity : AppCompatActivity() {
         const val TAG = "MainActivity"
     }
     
+    private lateinit var versionText: TextView
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+        
+        versionText.text = ("ffmpeg version: " + NativeBridge.ffmpegVersion())
     }
     
     private fun initView(){
@@ -22,5 +28,6 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG, "select video button clicked.")
             Log.e(TAG,"select video button clicked end.")
         }
+        versionText = findViewById<TextView>(R.id.text_ff_version)
     }
 }//end class
