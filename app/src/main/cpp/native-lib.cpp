@@ -7,13 +7,6 @@ extern "C"{
 
 extern "C"
 JNIEXPORT jstring JNICALL
-Java_xyz_panyi_fullstackeditor_bridge_NativeBridge_stringFromJNI(JNIEnv *env, jclass clazz) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
-
-extern "C"
-JNIEXPORT jstring JNICALL
 Java_xyz_panyi_fullstackeditor_bridge_NativeBridge_ffmpegVersion(JNIEnv *env, jclass clazz) {
     unsigned version = avcodec_version();  // 获取版本号
     char info[100];

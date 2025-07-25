@@ -1,6 +1,7 @@
 package xyz.panyi.fullstackeditor.bridge;
 
 public class NativeBridge {
+
     static {
         System.loadLibrary("avcodec");
         System.loadLibrary("avfilter");

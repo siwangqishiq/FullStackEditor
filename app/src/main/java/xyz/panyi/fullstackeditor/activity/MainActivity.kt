@@ -1,11 +1,18 @@
 package xyz.panyi.fullstackeditor.activity
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import xyz.panyi.fullstackeditor.R
 import xyz.panyi.fullstackeditor.bridge.NativeBridge
+import xyz.panyi.fullstackeditor.data.PICKER_TYPE_VIDEO
+import xyz.panyi.fullstackeditor.data.REQUEST_CODE_PICK_VIDEO
+import xyz.panyi.fullstackeditor.data.REQUEST_PERMISSION_READ_VIDEOS
 import xyz.panyi.fullstackeditor.util.Log
 
 class MainActivity : AppCompatActivity() {
@@ -26,8 +33,36 @@ class MainActivity : AppCompatActivity() {
     private fun initView(){
         findViewById<View>(R.id.btn_select_video).setOnClickListener{
             Log.i(TAG, "select video button clicked.")
-            Log.e(TAG,"select video button clicked end.")
+            selectVideoFile()
         }
         versionText = findViewById<TextView>(R.id.text_ff_version)
+    }
+    
+    private fun selectVideoFile(){
+        Log.i(TAG, "selectVideoFile")
+        if(checkSelfPermission(Manifest.permission.READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED){
+            FilePickerActivity.start(this, PICKER_TYPE_VIDEO, REQUEST_CODE_PICK_VIDEO)
+        }else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requestPermissions(arrayOf(Manifest.permission.READ_MEDIA_VIDEO), REQUEST_PERMISSION_READ_VIDEOS)
+            }else{
+                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION_READ_VIDEOS)
+            }
+        }
+    }
+    
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        
+        if(requestCode == REQUEST_PERMISSION_READ_VIDEOS){
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                FilePickerActivity.start(this, PICKER_TYPE_VIDEO, REQUEST_CODE_PICK_VIDEO)
+            }
+        }
+    }
+    
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        
     }
 }//end class
