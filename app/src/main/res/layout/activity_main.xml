@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/text_ff_version"
-        android:text="ffmpegVer:"
-        android:textSize="8sp"
+        android:text="@string/ffmpegver"
+        android:textSize="11sp"
         android:textColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
