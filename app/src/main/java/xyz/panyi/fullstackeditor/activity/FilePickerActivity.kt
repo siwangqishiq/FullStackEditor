@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import xyz.panyi.fullstackeditor.R
 import xyz.panyi.fullstackeditor.data.FilePickerParams
 import xyz.panyi.fullstackeditor.util.Log
@@ -26,6 +27,8 @@ class FilePickerActivity : AppCompatActivity() {
     }
     
     private var params:FilePickerParams? = null
+
+    private lateinit var listView:RecyclerView
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,8 @@ class FilePickerActivity : AppCompatActivity() {
         setTitle(R.string.picker_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        listView = findViewById(R.id.picker_file_list)
     }
     
     override fun onSupportNavigateUp(): Boolean {
