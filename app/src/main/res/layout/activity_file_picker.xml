@@ -2,17 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
    <androidx.appcompat.widget.Toolbar
        android:id="@+id/toolbar"
+       android:background="@color/purple_500"
+       app:titleTextColor="@color/white"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:background="@color/purple_700"
-       app:titleTextColor="@color/white"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toTopOf="parent" />

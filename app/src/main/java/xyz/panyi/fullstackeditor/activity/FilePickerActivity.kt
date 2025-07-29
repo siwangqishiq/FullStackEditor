@@ -56,7 +56,7 @@ class FilePickerActivity : AppCompatActivity() {
         setTitle(R.string.picker_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-
+        
         listView = findViewById(R.id.picker_file_list)
         listView.layoutManager =GridLayoutManager(this,3)
         listView.adapter = VideoAdapter()
@@ -189,7 +189,7 @@ class FilePickerActivity : AppCompatActivity() {
                                 selectedItems.add(item.uri)
                             }
                         }
-                        notifyItemChanged(position)
+                        notifyItemChanged(adapterPosition)
                         updateConfirmButtonState() // 更新按钮状态
                     }
                 }

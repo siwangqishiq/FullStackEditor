@@ -64,11 +64,18 @@ class MainActivity : AppCompatActivity() {
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_PERMISSION_READ_VIDEOS && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_CODE_PICK_VIDEO && resultCode == RESULT_OK) {
             val selectedVideos = data?.getParcelableArrayExtra(FilePickerActivity.RESULT_SELECTED_FILES)
                 ?.filterIsInstance<Uri>()
                 ?.toList() ?: emptyList()
+            
             // 处理选择的视频
+            if(selectedVideos.isNotEmpty()){
+                Log.i(TAG, "select video file: ${selectedVideos[0]}")
+            }else{
+                Log.e(TAG, "selectedVideos is Empty!")
+            }
+            
         }
         
     }
