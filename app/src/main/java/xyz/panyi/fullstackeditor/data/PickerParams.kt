@@ -12,5 +12,5 @@ data class FilePickerParams (
     val type:Int,
     val multiSelected : Boolean = false,
     var minSelectCount:Int = 1, //最小选择数量
-    var maxSelectCount:Int = 1, //最大选择数量
+    var maxSelectCount:Int = 3, //最大选择数量
 ): Serializable

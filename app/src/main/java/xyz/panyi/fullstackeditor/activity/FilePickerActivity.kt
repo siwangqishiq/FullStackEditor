@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,7 @@ class FilePickerActivity : AppCompatActivity() {
     
     private var params:FilePickerParams? = null
     private lateinit var listView:RecyclerView
+    private lateinit var confirmButton: Button
     private val videoList = mutableListOf<VideoItem>()
     private val selectedItems = mutableListOf<Uri>()
 
@@ -58,6 +60,17 @@ class FilePickerActivity : AppCompatActivity() {
         listView = findViewById(R.id.picker_file_list)
         listView.layoutManager =GridLayoutManager(this,3)
         listView.adapter = VideoAdapter()
+
+        confirmButton = findViewById(R.id.confirm_button)
+        confirmButton.setOnClickListener {
+            finish() // 调用finish()会返回选择的视频
+        }
+        updateConfirmButtonState() // 初始化按钮状态
+    }
+
+    // 更新确认按钮状态
+    private fun updateConfirmButtonState() {
+        confirmButton.isEnabled = selectedItems.isNotEmpty()
     }
 
     private fun readParams(){
@@ -177,6 +190,7 @@ class FilePickerActivity : AppCompatActivity() {
                             }
                         }
                         notifyItemChanged(position)
+                        updateConfirmButtonState() // 更新按钮状态
                     }
                 }
             }

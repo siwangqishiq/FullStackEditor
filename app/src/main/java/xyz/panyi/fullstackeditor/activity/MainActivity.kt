@@ -3,6 +3,7 @@ package xyz.panyi.fullstackeditor.activity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -63,6 +64,12 @@ class MainActivity : AppCompatActivity() {
     
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_PERMISSION_READ_VIDEOS && resultCode == RESULT_OK) {
+            val selectedVideos = data?.getParcelableArrayExtra(FilePickerActivity.RESULT_SELECTED_FILES)
+                ?.filterIsInstance<Uri>()
+                ?.toList() ?: emptyList()
+            // 处理选择的视频
+        }
         
     }
 }//end class
