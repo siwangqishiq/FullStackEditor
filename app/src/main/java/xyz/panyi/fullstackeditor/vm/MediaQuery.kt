@@ -14,6 +14,7 @@ object MediaQuery {
         
         val result = ArrayList<PickerFile>(16)
         val projection = arrayOf(
+            MediaStore.Video.Media._ID,
             MediaStore.Video.Media.DATA,
             MediaStore.Video.Media.DISPLAY_NAME,
             MediaStore.Video.Media.SIZE,
@@ -26,7 +27,9 @@ object MediaQuery {
         
         val cur = context.contentResolver.query(
             MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-            projection, null, null, MediaStore.Video.Media.DATE_MODIFIED + " DESC"
+            projection,
+            "duration > ?", arrayOf<String>("1000"),
+            MediaStore.Video.Media.DATE_MODIFIED + " DESC"
         )
         
         if (cur != null) {
