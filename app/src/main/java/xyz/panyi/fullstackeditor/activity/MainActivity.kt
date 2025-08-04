@@ -62,13 +62,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
         if (requestCode == REQUEST_PERMISSION_READ_VIDEOS && resultCode == RESULT_OK) {
-            val selectedVideos = data?.getParcelableArrayExtra(FilePickerActivity.RESULT_SELECTED_FILES)
+            val selectedVideos = intent?.getParcelableArrayExtra(FilePickerActivity.RESULT_SELECTED_FILES)
                 ?.filterIsInstance<Uri>()
                 ?.toList() ?: emptyList()
             // 处理选择的视频
+            //selectedVideos.get(0)
+            // 启动视频编辑器
+            val intent = Intent(this, VideoEditorActivity::class.java).apply {
+                data = selectedVideos.get(0)   // 设置要编辑的视频URI
+            }
+            startActivity(intent)
         }
         
     }
